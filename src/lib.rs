@@ -1,10 +1,12 @@
 use std::error::Error;
 
 pub mod cli;
-use crate::cli::Cli;
-
+pub mod command;
 pub mod counter;
-use crate::counter::Counts;
+pub mod counts;
+
+use crate::cli::Cli;
+use crate::counts::Counts;
 
 pub fn run(cli: Cli) -> Result<(), Box<dyn Error>> {
     let counts = Counts::from(cli);
