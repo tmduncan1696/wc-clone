@@ -14,12 +14,12 @@ pub enum Command {
 }
 
 #[derive(Debug, PartialEq)]
-pub struct Counts {
+pub struct Counter {
     file: String,
     counts: HashMap<Command, usize>
 }
 
-impl From<Cli> for Counts {
+impl From<Cli> for Counter {
     fn from(cli: Cli) -> Self {
         let file: String = cli.file;
 
@@ -46,11 +46,11 @@ impl From<Cli> for Counts {
             commands.push(Command::CountBytes);
         };
 
-        Counts::build(file, commands)
+        Counter::build(file, commands)
     }
 }
 
-impl Counts {
+impl Counter {
     fn build(file: String, commands: Vec<Command>) -> Self {
         let contents: String = std::fs::read_to_string(&file)
             .unwrap_or_else(|_err| {
@@ -60,7 +60,7 @@ impl Counts {
 
         let counts = count(&contents, commands);
 
-        Counts {
+        Counter {
             file,
             counts
         }
@@ -165,7 +165,7 @@ mod test {
     #[test]
     fn test_build() {
         let commands: Vec<Command> = vec![Command::CountLines, Command::CountWords, Command::CountChars];
-        let out = Counts::build("test_files/poem.txt".to_string(), commands);
+        let out = Counter::build("test_files/poem.txt".to_string(), commands);
 
         let file = "test_files/poem.txt".to_string();
         let counts = HashMap::from([
@@ -176,7 +176,7 @@ mod test {
 
         assert_eq!(
             out,
-            Counts {
+            Counter {
                 file,
                 counts
             }
@@ -193,7 +193,7 @@ mod test {
             lines: false
         };
 
-        let out: Counts = Counts::from(cli);
+        let out: Counter = Counter::from(cli);
 
         let file = "test_files/poem.txt".to_string();
         let counts = HashMap::from([
@@ -204,7 +204,7 @@ mod test {
 
         assert_eq!(
             out,
-            Counts {
+            Counter {
                 file,
                 counts
             }
@@ -214,7 +214,7 @@ mod test {
     #[test]
     fn test_to_string() {
         let commands: Vec<Command> = vec![Command::CountLines, Command::CountWords, Command::CountChars];
-        let counts = Counts::build("test_files/poem.txt".to_string(), commands);
+        let counts = Counter::build("test_files/poem.txt".to_string(), commands);
         
         let out = counts.to_string();
 
