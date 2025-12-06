@@ -3,8 +3,8 @@ use clap::{Parser, ArgAction};
 #[derive(Parser, Debug)]
 #[command(name = "Cat Clone")]
 pub struct Cli {
-    #[arg(value_parser, num_args = 1, value_delimiter = ' ')]
-    pub file: String,
+    #[arg(value_parser, num_args = 1.., value_delimiter = ' ')]
+    pub files: Vec<String>,
 
     #[arg(short = 'c', long, action = ArgAction::SetTrue)]
     pub bytes: bool,
@@ -13,10 +13,10 @@ pub struct Cli {
     pub chars: bool,
 
     #[arg(short, long, action = ArgAction::SetTrue)]
-    pub lines: bool,
+    pub words: bool,
 
     #[arg(short, long, action = ArgAction::SetTrue)]
-    pub words: bool
+    pub lines: bool,
 }
 
 impl Cli {
