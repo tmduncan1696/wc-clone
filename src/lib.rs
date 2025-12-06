@@ -4,13 +4,12 @@ pub mod cli;
 use crate::cli::Cli;
 
 pub mod counter;
-use crate::counter::Counter;
-
+use crate::counter::Counts;
 
 pub fn run(cli: Cli) -> Result<(), Box<dyn Error>> {
-    let counter = Counter::from(cli);
+    let counts = Counts::from(cli);
 
-    println!("{}", counter.to_string());
+    println!("{}", counts.to_string());
 
     Ok(())
 }
