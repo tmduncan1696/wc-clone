@@ -19,24 +19,19 @@ impl From<Cli> for Counts {
 
         let mut commands: Vec<Command> = Vec::new();
 
-        let lines: bool = if cli.lines || cli.words || cli.chars || cli.bytes { cli.lines } else { true };
-        let words: bool = if cli.lines || cli.words || cli.chars || cli.bytes { cli.words } else { true };
-        let chars: bool = if cli.lines || cli.words || cli.chars || cli.bytes { cli.chars } else { true };
-        let bytes: bool = if cli.lines || cli.words || cli.chars || cli.bytes { cli.bytes } else { false };
-
-        if lines {
+        if cli.lines {
             commands.push(Command::CountLines);
         };
 
-        if words {
+        if cli.words {
             commands.push(Command::CountWords);
         };
 
-        if chars {
+        if cli.chars {
             commands.push(Command::CountChars);
         };
 
-        if bytes {
+        if cli.bytes {
             commands.push(Command::CountBytes);
         };
 
@@ -223,9 +218,9 @@ mod test {
         let cli = Cli {
             files: vec!["test_files/poem.txt".to_string()],
             bytes: false,
-            chars: false,
-            words: false,
-            lines: false
+            chars: true,
+            words: true,
+            lines: true
         };
 
         let out = Counts::from(cli);
@@ -246,9 +241,9 @@ mod test {
         let cli = Cli {
             files: vec!["test_files/poem.txt".to_string(), "test_files/foo.txt".to_string()],
             bytes: false,
-            chars: false,
-            words: false,
-            lines: false
+            chars: true,
+            words: true,
+            lines: true
         };
 
         let out = Counts::from(cli);
@@ -278,9 +273,9 @@ mod test {
         let cli = Cli {
             files: vec!["test_files/poem.txt".to_string()],
             bytes: false,
-            chars: false,
-            words: false,
-            lines: false
+            chars: true,
+            words: true,
+            lines: true
         };
 
         let counts = Counts::from(cli);
@@ -299,9 +294,9 @@ mod test {
         let cli = Cli {
             files: vec!["test_files/poem.txt".to_string(), "test_files/foo.txt".to_string()],
             bytes: false,
-            chars: false,
-            words: false,
-            lines: false
+            chars: true,
+            words: true,
+            lines: true
         };
 
         let counts = Counts::from(cli);
