@@ -3,7 +3,7 @@ use clap::{Parser, ArgAction};
 #[derive(Parser, Debug, PartialEq)]
 #[command(name = "WC Clone")]
 pub struct Cli {
-    #[arg(value_parser, num_args = 1.., value_delimiter = ' ')]
+    #[arg(value_parser, num_args = 0.., value_delimiter = ' ')]
     pub files: Vec<String>,
 
     #[arg(short = 'c', long, action = ArgAction::SetTrue)]
