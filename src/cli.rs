@@ -1,7 +1,7 @@
 use clap::{Parser, ArgAction};
 
 #[derive(Parser, Debug, PartialEq)]
-#[command(name = "Cat Clone")]
+#[command(name = "WC Clone")]
 pub struct Cli {
     #[arg(value_parser, num_args = 1.., value_delimiter = ' ')]
     pub files: Vec<String>,
