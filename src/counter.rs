@@ -1,4 +1,5 @@
 use std::collections::HashMap;
+use std::error::Error;
 
 use strum::IntoEnumIterator;
 
@@ -13,7 +14,7 @@ pub struct Counter {
 
 impl Counter {
     pub fn build(file: String, commands: Vec<Command>) -> Self {
-        let contents: String = std::fs::read_to_string(&file)
+        let contents: String = read_file(&file)
             .unwrap_or_else(|_err| {
                 eprintln!("Could not read file: {}", file);
                 std::process::exit(1);
@@ -51,6 +52,13 @@ impl Counter {
     }
 }
 
+fn read_file(file: &String) -> Result<String, Box<dyn Error>> {
+    if *file == String::from("-") || *file == String::from("") {
+        Ok(std::io::stdin().lines().collect::<Result<String, _>>()? + "\n")
+    } else {
+        Ok(std::fs::read_to_string(file)?)
+    }
+}
 
 fn count_lines(s: &str) -> usize {
     s.lines().count()
