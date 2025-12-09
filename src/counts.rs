@@ -35,6 +35,14 @@ impl From<Cli> for Counts {
             commands.push(Command::CountBytes);
         };
 
+        if files.len() == 0 {
+            return Counts {
+                counts: vec![
+                    Counter::build("".to_string(), commands)
+                ]
+            }
+        }
+
         if files.len() == 1 {
             return Counts {
                 counts: vec![
